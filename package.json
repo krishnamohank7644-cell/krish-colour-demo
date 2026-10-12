@@ -1,0 +1,9 @@
+{
+  "name": "krish-colour-prediction-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Virtual-coin educational demo wrapped with Capacitor",
+  "scripts": {
+    "build": "echo Static demo ready"
+  }
+}
