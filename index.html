@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>KRISH Colour Prediction Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#f4f7ff;font-family:Arial,sans-serif;padding:18px}
+.wrap{max-width:520px;margin:auto}.brand{text-align:center;font-size:25px;font-weight:900;letter-spacing:1px;margin:12px 0 4px}
+.sub{text-align:center;color:#aeb9d2;margin-bottom:20px;font-size:13px}
+.card{background:#151e33;border:1px solid #2b3856;border-radius:18px;padding:16px;margin:13px 0}
+.row{display:flex;gap:10px}.btn{border:0;border-radius:12px;padding:14px 8px;color:white;font-size:16px;font-weight:700;flex:1;cursor:pointer}
+.red{background:#e84358}.green{background:#18a873}.violet{background:#8c5cff}.gold{background:#d79b26}.blue{background:#2867d7}
+.small{color:#aeb9d2;font-size:13px}.big{font-size:26px;font-weight:800}.history{display:flex;justify-content:space-between;border-bottom:1px solid #29344e;padding:10px 0}
+button:active{transform:scale(.98)}.notice{font-size:12px;color:#f6d58c;line-height:1.5}
+</style></head>
+<body><main class="wrap">
+<div class="brand">KRISH COLOUR</div><div class="sub">Prediction Game • Demo Mode</div>
+<div class="card"><div class="small">Virtual balance (demo only)</div><div class="big">🪙 <span id="coins">1000</span></div><div class="small">No real money • No deposits • No withdrawals</div></div>
+<div class="card"><div class="small">Choose a colour</div><div class="row" style="margin-top:10px"><button class="btn red" onclick="choose('Red')">RED</button><button class="btn green" onclick="choose('Green')">GREEN</button><button class="btn violet" onclick="choose('Violet')">VIOLET</button></div>
+<div class="small" style="margin:16px 0 10px">Choose size</div><div class="row"><button class="btn blue" onclick="choose('Big')">BIG</button><button class="btn gold" onclick="choose('Small')">SMALL</button></div>
+<p id="msg" class="small">Select an option to see a demo result.</p><button class="btn" style="width:100%;background:#36415c" onclick="resetDemo()">Reset demo</button></div>
+<div class="card"><div class="big" style="font-size:20px">Recent results</div><div id="history" class="small">No results yet.</div></div>
+<div class="card notice">This is a simple offline demo for learning and testing. Results are random and do not predict real events. Do not deposit money or treat this as a way to earn money.</div>
+</main>
+<script>
+let coins=1000, history=[];
+function choose(choice){
+ const colors=['Red','Green','Violet']; const color=colors[Math.floor(Math.random()*3)];
+ const num=Math.floor(Math.random()*10); const size=num>=5?'Big':'Small';
+ const win=choice===color||choice===size;
+ coins=Math.max(0,coins+(win?50:-20));
+ document.getElementById('coins').textContent=coins;
+ document.getElementById('msg').textContent='Your choice: '+choice+' • Demo result: '+color+' / '+size+' ('+num+') • '+(win?'Demo win +50':'Demo loss -20');
+ history.unshift({color,size,num});history=history.slice(0,8);render();
+}
+function render(){document.getElementById('history').innerHTML=history.map((x,i)=>'<div class="history"><span>#'+(history.length-i)+'</span><b>'+x.color+'</b><span>'+x.size+'</span><span>'+x.num+'</span></div>').join('')||'No results yet.'}
+function resetDemo(){coins=1000;history=[];document.getElementById('coins').textContent=coins;document.getElementById('msg').textContent='Demo reset. Select an option.';render()}
+</script></body></html>
